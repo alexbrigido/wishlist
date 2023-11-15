@@ -1,18 +1,25 @@
-package com.jaya.wishlist.controller;
+package com.jaya.wishlist.resource;
 
+import com.jaya.wishlist.model.Wishlist;
+import com.jaya.wishlist.service.WishlistService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-public class WishlistController {
+import java.util.List;
 
+@RestController
+public class WishlistResource {
+
+
+    @Autowired
+    WishlistService service;
 
     @GetMapping(value = "/wishlist")
-    public ResponseEntity<Object> findAll(
+    public ResponseEntity<List<Wishlist>> findAll(
             @RequestParam(value = "clientId") Long clientId
     ){
-        var response = "olá";
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(service.findAllByClientId(clientId));
     }
 
     @GetMapping(value = "/wishlist/{productId}")
