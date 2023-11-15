@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
 public class WishlistResource {
-
 
     @Autowired
     WishlistService service;
@@ -36,7 +36,16 @@ public class WishlistResource {
             @RequestParam(value = "clientId") Long clientId,
             @RequestParam(value = "productId") Long productId
     ){
-        var response = "olá";
-        return ResponseEntity.ok(response);
+        service.add(clientId, productId);
+        return ResponseEntity.created(URI.create("/wishlist/")).build();
+    }
+
+    @DeleteMapping(value = "/wishlist")
+    public ResponseEntity<Object> delete(
+            @RequestParam(value = "clientId") Long clientId,
+            @RequestParam(value = "productId") Long productId
+    ){
+        service.delete(clientId, productId);
+        return ResponseEntity.ok().build();
     }
 }
