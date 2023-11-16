@@ -16,18 +16,18 @@ public class WishlistResource {
     WishlistService service;
 
     @GetMapping(value = "/wishlist")
-    public ResponseEntity<List<Wishlist>> findAll(
+    public ResponseEntity<List<Wishlist>> findAllByClientId(
             @RequestParam(value = "clientId") Long clientId
     ){
         return ResponseEntity.ok(service.findAllByClientId(clientId));
     }
 
     @GetMapping(value = "/wishlist/{productId}")
-    public ResponseEntity<Object> findByProductId(
+    public ResponseEntity<Object> findAllByProductId(
             @RequestParam(value = "clientId") Long clientId,
             @PathVariable(value = "productId") Long productId
     ){
-        var response = "olá";
+        var response = service.findOneByClient(clientId, productId);
         return ResponseEntity.ok(response);
     }
 
